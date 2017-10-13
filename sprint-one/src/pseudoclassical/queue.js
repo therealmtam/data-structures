@@ -6,7 +6,6 @@ var Queue = function() {
 
 };
 
-
 Queue.prototype.enqueue = function(value) {
   
   var first = Object.keys(this.storage).sort(function(cur, next) {
@@ -40,3 +39,4 @@ Queue.prototype.size = function() {
    
   return s;
 };
+
