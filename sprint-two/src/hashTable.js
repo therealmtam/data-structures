@@ -5,50 +5,57 @@ var HashTable = function() {
 
 HashTable.prototype.insert = function(k, v) {
   var index = getIndexBelowMaxForKey(k, this._limit);
+  // debugger;
   var cur = this._storage.get(index);
-  var node = {value: v, next: null, key: k};
+  var pair = [k, v];
   if (cur === undefined) {
-    this._storage.set(index, node);
-  } else {
-    var pre;
-    while (cur !== null) {
-      if (cur.key === k) {
-        cur.value = v;
-        return;
-      }
-      pre = cur;
-      cur = cur.next;
-    }
-    pre.next = node;
+    this._storage.set(index, []);
+    this._storage.get(index).push(pair);
+    return;
   }
-
+  var i = 0;
+  var bucket = this._storage.get(index);
+  while (bucket[i] !== undefined) {
+    if (bucket[i][0] !== k) {
+      bucket.push(pair);
+    } else if (bucket[i][0] === k) {
+      bucket[i][1] = v;
+    }
+    i++;
+  }
+  console.log(bucket);
+  console.log('________________________');
 };
 
 HashTable.prototype.retrieve = function(k) {
   var index = getIndexBelowMaxForKey(k, this._limit);
+  // debugger;
   var cur = this._storage.get(index);
-  if (cur === undefined) {
-    return cur;
+  if (cur.length && cur.length === 1) {
+    return cur[0][1];
   }
-  while (cur.key !== k) {
-    cur = cur.next;
+  var i = 0;
+  while (cur[i] !== undefined) {
+    if (cur[i][0] === k) {
+      return cur[i][1];
+    }
+    i++;
   }
-  return cur.value;
-
 };
 
 HashTable.prototype.remove = function(k) {
   var index = getIndexBelowMaxForKey(k, this._limit);
   var cur = this._storage.get(index);
-  if (cur.next === null) {
-    this._storage.set(index, undefined);
-  } else {
-    var pre;
-    while (cur && cur.key !== k) {
-      pre = cur;
-      cur = cur.next;
+
+  if (cur.length && cur.length === 1) {
+    this._storage.set(index, []);
+  }
+  var i = 0;
+  while (cur[i] !== undefined) {
+    if (cur[i][0] === k) {
+      cur.splice(i, 1);
     }
-    pre.next = cur;
+    i++;
   }
 };
 
