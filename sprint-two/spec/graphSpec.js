@@ -68,4 +68,21 @@ describe('graph', function() {
     expect(graph.hasEdge(3, 5)).to.equal(true);
     expect(graph.hasEdge(5, 5)).to.equal(true);
   });
+
+  //EXTRA TEST
+  it('should apply a callback function to only the target items when targetNodes is called', function() {
+    var result = [];
+
+    var cb = function(value) {
+      result.push(value);
+    };
+
+    graph.addNode(5);
+    graph.addNode(2);
+    graph.addNode(1);
+    graph.addNode(3);
+    graph.targetNodes(cb, 5, 2, 1, 3);
+    expect(result).to.eql([5, 2, 1, 3]);
+  });
+
 });

@@ -52,4 +52,16 @@ describe('linkedList', function() {
   });
 
   // add more tests here to test the functionality of linkedList
+
+  //Extra Test
+  it('should have a new Head Node when addToHead is called', function() {
+    linkedList.addToHead(4);
+    linkedList.addToHead(5);
+    linkedList.removeHead();
+    expect(linkedList.head.value).to.equal(4);
+  });
+
+
+
+
 });

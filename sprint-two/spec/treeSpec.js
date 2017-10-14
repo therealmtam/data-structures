@@ -41,4 +41,11 @@ describe('tree', function() {
     expect(tree.contains(8)).to.equal(true);
   });
 
+  //Extra test
+  it('should have parent property applied to all Trees', function() {
+    tree.addChild(5);
+    tree.addChild(6);
+    expect(tree.children[1].parent).to.equal(tree);
+  });
+
 });

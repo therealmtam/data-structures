@@ -47,8 +47,28 @@ describe('hashTable', function() {
     window.getIndexBelowMaxForKey = oldHashFunction;
   });
 
+  //Extra Unit Test
+  it('should double the limit of the array when it reaches 75% capacity', function() {
+    hashTable.insert('1', 1);
+    hashTable.insert('2', 2);
+    hashTable.insert('3', 3);
+    hashTable.insert('4', 4);
+    hashTable.insert('5', 5);
+    hashTable.insert('6', 6);
+    hashTable.insert('7', 7);
+    expect(hashTable._limit).to.equal(16);
+    hashTable.insert('8', 8);
+    hashTable.insert('9', 9);
+    hashTable.insert('10', 10);
+    hashTable.insert('11', 11);
+    hashTable.insert('12', 12);
+    hashTable.insert('13', 13);
+    expect(hashTable._limit).to.equal(32);
+    expect(hashTable.retrieve('5')).to.equal(5);
+  });
+
   // (Advanced! Remove the extra "x" when you want the following tests to run)
-  xit ('should double in size when needed', function() {
+  it ('should double in size when needed', function() {
     _.each(people, function(person) {
       var firstName = person[0];
       var lastName = person[1];
@@ -58,7 +78,7 @@ describe('hashTable', function() {
     expect(hashTable._limit).to.equal(16);
   });
 
-  xit ('should halve in size when needed', function() {
+  it ('should halve in size when needed', function() {
     _.each(people, function(person) {
       var firstName = person[0];
       var lastName = person[1];
